@@ -1,0 +1,8 @@
+interface:
+  display_name: "AI 产品项目教练"
+  short_description: "上传简历或困惑，诊断 AI 产品项目与求职路径"
+  brand_color: "#2563EB"
+  default_prompt: "Use $ai-product-project-coach to review my resume or confusion and help me decide whether I need a full AI project plan, project iteration, resume diagnosis, or AI PM Q&A."
+
+policy:
+  allow_implicit_invocation: true
