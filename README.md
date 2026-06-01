@@ -1,19 +1,19 @@
-# AI Product Project Coach
+# AI 产品项目教练
 
-An AI assistant skill for coaching AI product internship candidates and career switchers.
+一个面向 AI 产品实习求职、转行和个人项目包装的 AI assistant skill。
 
-The skill helps users route their request, diagnose resume or project material, design credible AI product projects, plan evaluation sets, reason through badcases, and prepare interview-ready project narratives.
+它可以根据用户上传的简历、已有项目、个人经历或具体困惑，先判断用户真正想解决的问题，再给出对应的辅导：AI 项目方向、项目迭代方案、简历诊断、AI 产品经理能力答疑，或一份完整的 AI 项目落地方案。
 
-## What It Supports
+## 支持的场景
 
-- Full AI product project plan reports
-- AI project direction for users without existing AI projects
-- Iteration plans for personal demos, webpages, RAG tools, Agent workflows, or prompt tools
-- Resume diagnosis for AI product roles
-- AI PM Q&A, including technical depth, RAG, Agent, prompt chains, and evals
-- Interview defense and project follow-up preparation
+- 生成完整的 AI 产品项目落地方案
+- 给没有 AI 项目的用户寻找不烂大街的项目方向
+- 优化个人 demo、网页项目、RAG 工具、Agent 工作流或 Prompt 工具
+- 诊断 AI 产品岗简历里的问题
+- 回答 AI 产品经理工作内容、技术理解深度、RAG、Agent、Prompt Chain、Evals 等问题
+- 准备项目面试追问、badcase 讲解和边界防御
 
-## Skill Structure
+## Skill 结构
 
 ```text
 ai-product-project-coach/
@@ -30,14 +30,14 @@ ai-product-project-coach/
     └── project-patterns.md
 ```
 
-## Design Principles
+## 设计原则
 
-- Start from the user's real experience and materials.
-- Do not invent launches, internal access, metrics, algorithm ownership, or business results.
-- Explain the project loop: function point, AI technical solution, eval set, MECE rubric, badcase diagnosis, data-driven iteration.
-- Prefer concrete AI product architecture over generic feature lists.
-- Keep final outputs direct, practical, and interview-defensible.
+- 从用户真实经历、真实材料和可补做证据出发。
+- 不编造上线结果、内部权限、业务指标、算法归属或商业结果。
+- 强调完整项目闭环：功能点、AI 技术方案、评测集、MECE 评分标准、badcase 归因、数据驱动迭代。
+- 优先输出具体的 AI 产品架构，而不是泛泛的功能列表。
+- 输出风格保持直接、实用、能经得起面试追问。
 
-## License
+## 许可证
 
 MIT
