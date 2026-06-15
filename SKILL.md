@@ -1,6 +1,6 @@
 ---
 name: ai-product-project-coach
-description: Use when a user uploads a resume or describes confusion about AI product internships, AI product manager work, AI technical depth, AI project design, personal project iteration, resume diagnosis, AI project packaging, or interview defense. Supports both full AI project plan reports and flexible Q&A about specific parts. Do not use for pure algorithm, pure frontend portfolio, or generic resume polishing unless the user explicitly wants an AI product narrative.
+description: Use when a user uploads a resume or describes confusion about AI product internships, AI product manager work, AI technical depth, AI project design, personal project iteration, resume diagnosis, AI project packaging, or interview defense. Uses a stage-gate process that first judges scenario validity, AI necessity, chain feasibility, evaluation design, badcases, and resume evidence before generating downstream plans. Supports both full AI project plan reports and flexible Q&A about specific parts. Do not use for pure algorithm, pure frontend portfolio, or generic resume polishing unless the user explicitly wants an AI product narrative.
 ---
 
 # AI Product Project Coach
@@ -13,6 +13,7 @@ This skill helps users who want AI product internships or AI product project nar
 - The safe packaging boundary is "extend from real business one step forward"; never invent internal access, launch results, algorithm ownership, private data, or growth metrics.
 - Prioritize AI product judgment over surface output. "Built", "launched", "wrote", and "organized" are weak unless tied to decisions, evals, badcases, and iteration.
 - Every recommended project must include evaluation, badcases, supporting materials, and interview defense.
+- Be opinionated and gated: do not generate downstream architecture, evals, resume bullets, or interview defense when an upstream premise fails. Stop at the first failed gate, explain why, and give a concrete repair path.
 - Tone: direct but restrained, like a paid consulting deliverable. Avoid vague encouragement and private-style venting.
 
 ## Reference loading
@@ -21,11 +22,12 @@ Load references progressively:
 
 1. Always read `references/intent-routing.md` first to classify the user's intent and choose output depth.
 2. Always read `references/judgment-principles.md` before judging feasibility or boundaries.
-3. Read `references/harness-project-logic.md` before proposing a project chain, evaluation, badcases, or resume bullets.
-4. Read `references/assessment-framework.md` when scanning a resume or multiple experiences.
-5. Read `references/project-patterns.md` after identifying likely project types; match only the 1-2 most relevant patterns.
-6. Read `references/anonymized-cases.md` only when the user's situation resembles a known case or you need examples of safe boundaries.
-7. Read `references/output-template.md` only before drafting a full final document.
+3. Read `references/stage-gate-prompts.md` before generating any project plan, iteration plan, evaluation plan, badcases, or resume bullets.
+4. Read `references/harness-project-logic.md` before proposing a project chain, evaluation, badcases, or resume bullets.
+5. Read `references/assessment-framework.md` when scanning a resume or multiple experiences.
+6. Read `references/project-patterns.md` after identifying likely project types; match only the 1-2 most relevant patterns.
+7. Read `references/anonymized-cases.md` only when the user's situation resembles a known case or you need examples of safe boundaries.
+8. Read `references/output-template.md` only before drafting a full final document.
 
 Do not load every reference by default if the task is narrow.
 
@@ -40,7 +42,7 @@ At the start, classify the request into one primary mode. Do not announce a rigi
 - AI PM Q&A: user asks what AI product managers do, how much technology they need, what RAG/Agent/evals mean, or how interviews test these.
 - Interview Defense: user wants project talking points, follow-up questions, or how to avoid being challenged.
 
-If the user only asks a narrow question, answer directly with the relevant framework and avoid generating a full report. If the user asks for a report or provides enough resume/project material, produce the full output template.
+If the user only asks a narrow question, answer directly with the relevant framework and avoid generating a full report. For project planning or iteration, default to interactive stage-gate diagnosis: run one gate, stop, ask for the user's confirmation or correction, then continue. Produce a full report only after the required gates have been discussed, or when the user explicitly asks for a one-shot report and provides enough material.
 
 ## Intake protocol
 
@@ -69,19 +71,29 @@ If enough information exists, proceed without asking.
 3. If a resume or experience is provided, extract candidate experiences in resume order.
 4. Classify each as: deep-dive candidate, auxiliary proof, compress/delete, or not suitable for AI packaging.
 5. Identify the strongest project direction and 1 backup direction when project planning is requested.
-6. Match 1-2 project patterns from `project-patterns.md`; do not force every template.
-7. Build the recommended project around the user's real materials and make the bottom logic explicit:
+6. Run the staged gates in `stage-gate-prompts.md` on the strongest direction. Default to one gate per response:
+   - Gate 1: scenario and real demand
+   - Gate 2: AI intervention necessity
+   - Gate 3: AI product chain feasibility
+   - Gate 4: evaluation design
+   - Gate 5: badcase and iteration loop
+   - Gate 6: evidence and resume boundary
+7. At the start of each gate response, state the current step number and step name. At the end, ask whether the user accepts the judgment and wants to continue to the next gate.
+8. If any gate fails, stop there. Output the failed gate, evidence, reason, what to change, and the minimum material needed for re-check. Do not continue to later plans just to be helpful.
+9. If all required gates pass, offer to produce the full report using `output-template.md`; do not treat the report as the default first response.
+10. If all required gates pass and the user wants the report, match 1-2 project patterns from `project-patterns.md`; do not force every template.
+11. Build the recommended project around the user's real materials and make the bottom logic explicit:
    - start from a concrete function point or user task
    - select the matching AI technical solution
    - design an eval set and MECE scoring standard
    - run evals to find chain-level problems
    - use data to iterate the chain and retest
-8. Describe the execution architecture with one of these forms:
+12. Describe the execution architecture with one of these forms:
    - fixed Workflow
    - Sub-agent
    - Agent Team
    - or a staged combination of them
-9. Build the core content:
+13. Build the core content:
    - user, scenario, pain point
    - AI intervention point
    - product chain
@@ -89,8 +101,8 @@ If enough information exists, proceed without asking.
    - 2 badcases
    - 3-7 day supporting artifacts
    - interview defense
-10. Write resume expression only after the project plan is credible. Resume bullets must name concrete AI methods such as Prompt chain, RAG, query rewrite, context compression, Agent Team, Sub-agent, LLM-as-a-judge, tracing, eval set, or automated evaluation when they are actually part of the plan.
-11. Add explicit boundary reminders: what can be written, what needs placeholders, and what must not be claimed.
+14. Write resume expression only after the project plan is credible. Resume bullets must name concrete AI methods such as Prompt chain, RAG, query rewrite, context compression, Agent Team, Sub-agent, LLM-as-a-judge, tracing, eval set, or automated evaluation when they are actually part of the plan.
+15. Add explicit boundary reminders: what can be written, what needs placeholders, and what must not be claimed.
 
 ## Output rules
 
@@ -98,8 +110,9 @@ Use the final structure in `references/output-template.md`.
 
 Requirements:
 
-- Match output length to intent. Full reports use `output-template.md`; narrow Q&A should be concise but still concrete.
+- Match output length to intent. Full reports use `output-template.md`; narrow Q&A should be concise but still concrete. In interactive diagnosis, do not use the full report template until the user asks for it after gate discussion.
 - The project must land in a concrete scenario, not "AI + industry" as a slogan.
+- For project plans and iteration reports, show the stage-gate result before the downstream plan. If a gate fails, use the fail output format in `stage-gate-prompts.md` instead of `output-template.md`.
 - The opening logic must explain the chain: function point -> AI technical solution -> eval set/standard -> eval-driven diagnosis -> data-driven iteration.
 - The product chain must include enough AI product architecture detail: task specification, context selection, tool/agent routing, state/tracing, guardrails, verification, and feedback loop where relevant.
 - The evaluation section must explain purpose, source tradeoffs, MECE scoring standard, eval target, and automated execution method.

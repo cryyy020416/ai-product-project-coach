@@ -15,7 +15,7 @@ Signals:
 
 Output:
 
-- Use `output-template.md`.
+- Run `stage-gate-prompts.md` first. Use `output-template.md` only after required gates pass; if a gate fails, stop with the failed-gate format.
 - Read judgment principles, harness logic, assessment framework, project patterns, and relevant cases.
 - If resume facts are insufficient, ask up to 5 high-impact questions before drafting.
 
@@ -35,6 +35,7 @@ Signals:
 
 Output:
 
+- Run Gate 1-3 before presenting a polished direction.
 - Give 1 strong direction and 1-2 backup directions.
 - Do not pretend the idea is already resume-ready.
 - Include why it fits, what evidence to build in 3-7 days, and what not to claim.
@@ -62,6 +63,7 @@ Output:
 
 - First diagnose why the project currently looks weak.
 - Usually the issue is: feature list without AI decision, no eval set, no badcase, no metric口径, no interview defense.
+- Run Gate 1-5 before giving a downstream iteration plan.
 - Then provide an iteration plan.
 
 Minimum structure:
